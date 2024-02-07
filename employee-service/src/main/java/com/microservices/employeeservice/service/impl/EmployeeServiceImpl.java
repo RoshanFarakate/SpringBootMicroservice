@@ -10,6 +10,7 @@ import com.microservices.employeeservice.dto.OrganizationDto;
 import com.microservices.employeeservice.entity.Employee;
 import com.microservices.employeeservice.mapper.EmployeeMapper;
 import com.microservices.employeeservice.repository.EmployeeRepository;
+import com.microservices.employeeservice.service.APIClient;
 import com.microservices.employeeservice.service.EmployeeService;
 import lombok.AllArgsConstructor;
 
@@ -23,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
    // private RestTemplate restTemplate;
 //    private WebClient webClient;
-//    private APIClient apiClient;
+    private APIClient apiClient;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -56,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 //                .bodyToMono(DepartmentDto.class)
 //                .block();
 
-      //  DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
+        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
 //        OrganizationDto organizationDto = webClient.get()
 //                .uri("http://localhost:8083/api/organizations/" + employee.getOrganizationCode())
@@ -68,7 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         APIResponseDto apiResponseDto = new APIResponseDto();
         apiResponseDto.setEmployee(employeeDto);
-//        apiResponseDto.setDepartment(departmentDto);
+        apiResponseDto.setDepartment(departmentDto);
 //        apiResponseDto.setOrganization(organizationDto);
         return apiResponseDto;
     }
